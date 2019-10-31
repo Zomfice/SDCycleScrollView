@@ -106,7 +106,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
 
-
+@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 
 
 //////////////////////  滚动控制API //////////////////////
