@@ -448,6 +448,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
     [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
 }
 
+- (__kindof UICollectionViewCell *)curIndexCell {
+    return [_mainView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[self currentIndex] inSection:0]];
+}
+
 - (int)currentIndex
 {
     if (_mainView.sd_width == 0 || _mainView.sd_height == 0) {

@@ -112,7 +112,7 @@ typedef enum {
 
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 
-
+- (__kindof UICollectionViewCell *)curIndexCell; // 当前显示的collectionCell
 //////////////////////  滚动控制API //////////////////////
 
 /** 自动滚动间隔时间,默认2s */
