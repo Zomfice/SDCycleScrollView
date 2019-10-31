@@ -565,6 +565,18 @@ NSString * const ID = @"SDCycleScrollViewCell";
     return _totalItemsCount;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:willDisplayItem:)]) {
+        [self.delegate cycleScrollView:self willDisplayItem:indexPath.item];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didEndDisplayingItem:)]) {
+        [self.delegate cycleScrollView:self didEndDisplayingItem:indexPath.item];
+    }
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
