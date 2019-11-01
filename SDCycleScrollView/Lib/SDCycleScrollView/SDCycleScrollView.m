@@ -572,13 +572,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:willDisplayItem:)]) {
-        [self.delegate cycleScrollView:self willDisplayItem:indexPath.item];
+        long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+        [self.delegate cycleScrollView:self willDisplayItem:itemIndex];
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didEndDisplayingItem:)]) {
-        [self.delegate cycleScrollView:self didEndDisplayingItem:indexPath.item];
+        long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+        [self.delegate cycleScrollView:self didEndDisplayingItem:itemIndex];
     }
 }
 
