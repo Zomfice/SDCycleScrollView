@@ -145,6 +145,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     mainView.dataSource = self;
     mainView.delegate = self;
     mainView.scrollsToTop = NO;
+    mainView.alwaysBounceVertical = YES;
     [self addSubview:mainView];
     _mainView = mainView;
 }
@@ -305,7 +306,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
-        self.mainView.scrollEnabled = NO;
+        self.mainView.scrollEnabled = YES;
         [self invalidateTimer];
     }
     
