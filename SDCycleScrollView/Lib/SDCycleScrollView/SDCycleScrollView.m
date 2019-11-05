@@ -707,5 +707,27 @@ NSString * const ID = @"SDCycleScrollViewCell";
         [self setupTimer];
     }
 }
-
+- (void)makeScrollViewScrollToIndex:(NSInteger)index animation:(BOOL)animation
+{
+    if (animation) {
+        [self makeScrollViewScrollToIndex:index];
+    }else{
+        if (self.autoScroll) {
+            [self invalidateTimer];
+        }
+        NSInteger targetIndex = (int)(_totalItemsCount * 0.5 + index);
+        if (0 == _totalItemsCount) return;
+        if (targetIndex >= _totalItemsCount) {
+            if (self.infiniteLoop) {
+                targetIndex = _totalItemsCount * 0.5;
+                [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            }
+            return;
+        }
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        if (self.autoScroll) {
+            [self setupTimer];
+        }
+    }
+}
 @end
