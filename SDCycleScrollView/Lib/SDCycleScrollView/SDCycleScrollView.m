@@ -51,6 +51,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 @property (nonatomic, strong) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
+@property (nonatomic, assign) BOOL isNotReload;
+
 @end
 
 @implementation SDCycleScrollView
@@ -60,8 +62,23 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (self = [super initWithFrame:frame]) {
         [self initialization];
         [self setupMainView];
+        [self notification];
     }
     return self;
+}
+- (void)notification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lifeCycle) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lifeCycle) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+}
+- (void)lifeCycle
+{
+    self.isNotReload = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notReoload) object:nil];
+    [self performSelector:@selector(notReoload) withObject:nil afterDelay:0.5];
+}
+- (void)notReoload{
+    self.isNotReload = NO;
 }
 
 - (void)awakeFromNib
@@ -488,6 +505,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 - (void)layoutSubviews
 {
+    if (self.isNotReload) {
+        return;
+    }
     self.delegate = self.delegate;
     
     [super layoutSubviews];
