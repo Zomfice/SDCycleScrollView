@@ -53,6 +53,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 @property (nonatomic, assign) BOOL isNotReload;
 
+@property (nonatomic, assign) NSInteger tempIndex;// 记录上次滚动的地方
+
 @end
 
 @implementation SDCycleScrollView
@@ -613,7 +615,12 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
         [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
-        [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
+        if (indexPath.item != 0) {
+            self.tempIndex = itemIndex;
+            [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
+        }else{
+            [self.delegate setupCustomCell:cell forIndex:self.tempIndex cycleScrollView:self];
+        }
         return cell;
     }else if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
               [self.delegate respondsToSelector:@selector(customCollectionViewCellNibForCycleScrollView:)] && [self.delegate customCollectionViewCellNibForCycleScrollView:self]) {
