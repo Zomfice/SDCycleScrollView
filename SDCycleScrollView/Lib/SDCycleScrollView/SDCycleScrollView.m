@@ -752,7 +752,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
             }
             return;
         }
-        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        if(targetIndex != [self currentIndex]){
+            [self.mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        }
         if (self.autoScroll) {
             [self setupTimer];
         }
